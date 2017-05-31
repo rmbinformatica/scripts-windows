@@ -5,6 +5,9 @@ Nesta seção você encontrará alguns scripts batch desenvolvidos pela nossa em
 ## `removeWSUS_restoreWindowsUpdate.bat`
 Reconfigura o windows update da estação de trabalho para não utilizar o servidor WSUS e passar a usar o servidor oficial do Windows Update.
 
+## `remoteExec.bat`
+Executa scripts .bat remotamente em computadores windows dentro de um range de ip especificado.
+
 ## `testeping.bat`
 Realiza teste de conectividade para um endereço especificado como parâmetro, utilizando o comando ping. Em caso de perda de pacotes, o horário da falha é registrado no arquivo `falhas.txt`.
 
