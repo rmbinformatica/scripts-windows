@@ -8,6 +8,9 @@ Reconfigura o windows update da estação de trabalho para não utilizar o servi
 ## `remoteExec.bat`
 Executa scripts .bat remotamente em computadores windows dentro de um range de ip especificado.
 
+## `infoCollector.bat`
+Coleta informações relevantes sobre a estação de trabalho, e salva dados do hardware no arquivo .txt e softwares instalados no arquivo .csv.
+
 ## `testeping.bat`
 Realiza teste de conectividade para um endereço especificado como parâmetro, utilizando o comando ping. Em caso de perda de pacotes, o horário da falha é registrado no arquivo `falhas.txt`.
 
