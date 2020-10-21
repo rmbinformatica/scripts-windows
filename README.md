@@ -6,7 +6,7 @@ Nesta seção você encontrará alguns scripts batch desenvolvidos pela nossa em
 
 ### Scripts PowerShell
 
-#### `definir_rede_privada.ps1``
+#### `definir_rede_privada.ps1`
 
 Reconfigura as categorias das conexões de rede existentes de público para privado.
 
