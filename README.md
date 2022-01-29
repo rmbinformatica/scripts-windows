@@ -28,6 +28,10 @@ Coleta informações relevantes sobre a estação de trabalho, e salva dados do 
 
 Realiza teste de conectividade para um endereço especificado como parâmetro, utilizando o comando ping. Em caso de perda de pacotes, o horário da falha é registrado no arquivo `falhas.txt`.
 
+#### `instalador_RMB.bat`
+
+Realiza instalação e configuração de programas básicos em um Windows 10 recém instalado.
+
 ## Licença de uso
 Todo o conteúdo deste pacote pode ser usado, modificado e redistribuído para fins não comerciais.
 
