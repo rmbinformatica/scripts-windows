@@ -1,6 +1,6 @@
 # instalador_RMB.bat
 
-O script `instalador_RMB.bat` é um pequeno script projetado para ser usado em um Windows 10 recém instalado a fim de realizar a instalação e configuração de softwares básicos que são necessários para a maioria dos usuários, reduzindo o trabalho do técnico durante o processo de instalação.
+O script [`instalador_RMB.bat`](https://raw.githubusercontent.com/rmbinformatica/scripts-windows/master/instalador_RMB.bat) é um pequeno script projetado para ser usado em um Windows 10 recém instalado a fim de realizar a instalação e configuração de softwares básicos que são necessários para a maioria dos usuários, reduzindo o trabalho do técnico durante o processo de instalação.
 
 ## Instruções de uso
 
