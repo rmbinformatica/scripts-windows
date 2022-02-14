@@ -70,6 +70,12 @@ MD c:\SysinternalsSuite
 CD\SysinternalsSuite
 "c:\Program Files\WinRAR\winrar.exe" E c:\instalar\SysinternalsSuite.zip
 
+REM echo Habilitar o Subsistema do Windows para Linux
+REM dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
+
+REM echo Habilitar o recurso de Máquina Virtual
+REM dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
+
 CD\Instalar
 echo Instalando o teamviewer
 if exist TeamViewer_Setup11Lexos.exe (
