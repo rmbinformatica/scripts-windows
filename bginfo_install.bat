@@ -1,0 +1,1 @@
+powershell -ExecutionPolicy Bypass -File .\implantar_bginfo.ps1 -x -r -i
