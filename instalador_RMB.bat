@@ -58,7 +58,6 @@ REG ADD HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Adv
 
 echo Retirando o botão visão da barra de tarefas
 REG ADD HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced /f /t REG_DWORD /v ShowTaskViewButton /d 0
-
 REG ADD HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced /f /t REG_DWORD /v ShowCortanaButton /d 0
 
 echo Definindo a senha do anydesk...
@@ -69,6 +68,16 @@ echo Extraindo SysinternalsSuite...
 MD c:\SysinternalsSuite
 CD\SysinternalsSuite
 "c:\Program Files\WinRAR\winrar.exe" E c:\instalar\SysinternalsSuite.zip
+
+echo Aceitando eula do SysinternalsSuite...
+REG ADD HKEY_CURRENT_USER\SOFTWARE\Sysinternals\BGInfo /f /t REG_DWORD /v EulaAccepted /d 1
+REG ADD HKEY_CURRENT_USER\SOFTWARE\Sysinternals\Disk2Vhd /f /t REG_DWORD /v EulaAccepted /d 1
+REG ADD "HKEY_CURRENT_USER\SOFTWARE\Sysinternals\Process Explorer" /f /t REG_DWORD /v EulaAccepted /d 1
+REG ADD HKEY_CURRENT_USER\SOFTWARE\Sysinternals\PsExec /f /t REG_DWORD /v EulaAccepted /d 1
+REG ADD HKEY_CURRENT_USER\SOFTWARE\Sysinternals\PsInfo /f /t REG_DWORD /v EulaAccepted /d 1
+REG ADD HKEY_CURRENT_USER\SOFTWARE\Sysinternals\PsKill /f /t REG_DWORD /v EulaAccepted /d 1
+REG ADD HKEY_CURRENT_USER\SOFTWARE\Sysinternals\TcpView /f /t REG_DWORD /v EulaAccepted /d 1
+REG ADD HKEY_CURRENT_USER\SOFTWARE\Sysinternals\VolumeID /f /t REG_DWORD /v EulaAccepted /d 1
 
 REM echo Habilitar o Subsistema do Windows para Linux
 REM dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
