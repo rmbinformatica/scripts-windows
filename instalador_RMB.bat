@@ -60,6 +60,9 @@ echo Retirando o botão visão da barra de tarefas
 REG ADD HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced /f /t REG_DWORD /v ShowTaskViewButton /d 0
 REG ADD HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced /f /t REG_DWORD /v ShowCortanaButton /d 0
 
+echo Exibindo icone do meu computador na area de trabalho...
+REG ADD HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\NewStartPanel /f /t REG_DWORD /v "{20D04FE0-3AEA-1069-A2D8-08002B30309D}" /d 0
+
 echo Definindo a senha do anydesk...
 set /P SenhaAnydesk="Informe qual sera a senha do anydesk: "
 echo %SenhaAnydesk% | "C:\Program Files (x86)\AnyDesk\AnyDesk.exe" --set-password
