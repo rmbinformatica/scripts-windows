@@ -9,7 +9,7 @@ echo ██   ██ ██      ██ ██████      ██ ██   
 echo .
 echo ============================================================
 echo Configurador do Windows 10 - Versao 1.0
-echo (C) 2021-2022 RMB Informatica - www.rmbinformatica.com
+echo (C) 2021-2023 RMB Informatica - www.rmbinformatica.com
 echo Desenvolvido por Renato Monteiro Batista
 echo Atualizado em 29/01/2022
 echo ============================================================
@@ -138,4 +138,14 @@ if exist WhatsAppSetup.exe (
 if exist tsetup-x64.3.4.8.exe (
     echo Instalando Telegram
     tsetup-x64.3.4.8.exe /VERYSILENT /NORESTART
+)
+
+if exist excecao_defender.ps1 (
+    echo Incluindo excecoes no windows defender
+    powershell -ExecutionPolicy Bypass -File .\excecao_defender.ps1 -x -r -i
+)
+
+if exist bloquear_upgrade_windows11.ps1 (
+    echo Bloqueando upgrade para o windows 11
+    powershell -ExecutionPolicy Bypass -File .\bloquear_upgrade_windows11.ps1 -x -r -i
 )
