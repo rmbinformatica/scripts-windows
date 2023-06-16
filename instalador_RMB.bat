@@ -11,7 +11,7 @@ echo ============================================================
 echo Configurador do Windows 10 - Versao 1.0
 echo (C) 2021-2023 RMB Informatica - www.rmbinformatica.com
 echo Desenvolvido por Renato Monteiro Batista
-echo Atualizado em 29/01/2022
+echo Atualizado em 16/06/2023
 echo ============================================================
 echo Verificando permissoes...
 NET SESSION
