@@ -31,6 +31,10 @@ REM ########## WINRAR ##########
 echo Instalando o winrar...
 start /b winrar-x64-602br.exe /S
 
+REM ########## RUSTDESK ##########
+echo Instalando o RustDesk...
+"rustdesk-host=servidor.rmbinformatica.net,key=AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=.exe"
+
 REM ########## ANYDESK ##########
 echo Instalando o anydesk...
 AnyDesk5-3-3.exe --install "C:\Program Files (x86)\AnyDesk" --start-with-win --remove-first --create-shortcuts --create-desktop-icon --silent --update-manually
@@ -40,14 +44,14 @@ echo Instalando o Google Chrome...
 ChromeStandaloneSetup64.exe /silent /install
 
 echo Instalando o firefox...
-Firefox_Setup_96.0.3.exe /S
+FirefoxSetup114.0.1 /S
 
 REM ########## UTILITARIOS ##########
 echo Instalando o NAPS Scanner
 naps2-6.1.2-setup.exe /SILENT
 
 echo Instalando o filezilla
-FileZilla_3.57.0_win64-setup /user=all /S
+FileZilla_3.64.0_win64-setup /user=all /S
 
 REM ########## CONFIGURACOES DO WINDOWS ##########
 echo Definindo plano de energia para Alto Desempenho
@@ -82,6 +86,22 @@ REG ADD HKEY_CURRENT_USER\SOFTWARE\Sysinternals\PsKill /f /t REG_DWORD /v EulaAc
 REG ADD HKEY_CURRENT_USER\SOFTWARE\Sysinternals\TcpView /f /t REG_DWORD /v EulaAccepted /d 1
 REG ADD HKEY_CURRENT_USER\SOFTWARE\Sysinternals\VolumeID /f /t REG_DWORD /v EulaAccepted /d 1
 
+echo Reparando o compartilhamento de impressoras
+REG ADD HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Print /f /t REG_DWORD /v RpcAuthnLevelPrivacyEnabled /d 0
+
+echo Configurando a exibicao de extensao dos arquivos
+REG ADD "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v HideFileExt /t REG_DWORD /d 0 /f
+
+if exist excecao_defender.ps1 (
+    echo Incluindo excecoes no windows defender
+    powershell -ExecutionPolicy Bypass -File .\excecao_defender.ps1 -x -r -i
+)
+
+if exist bloquear_upgrade_windows11.ps1 (
+    echo Bloqueando upgrade para o windows 11
+    powershell -ExecutionPolicy Bypass -File .\bloquear_upgrade_windows11.ps1 -x -r -i
+)
+
 REM echo Habilitar o Subsistema do Windows para Linux
 REM dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
 
@@ -92,17 +112,20 @@ CD\Instalar
 echo Instalando o teamviewer
 if exist TeamViewer_Setup11Lexos.exe (
     TeamViewer_Setup11Lexos.exe /S
-)
-if exist TeamViewer_Setup14.rar (
-    "c:\Program Files\WinRAR\WinRAR.exe" E TeamViewer_Setup14.rar
+    GOTO CONFIGTV
 )
 if exist TeamViewer_Setup15.exe (
     TeamViewer_Setup15.exe /S
+    GOTO CONFIGTV
 )
+GOTO ANTIVIRUS
+
+:CONFIGTV
 REG ADD HKEY_CURRENT_USER\Software\TeamViewer\MsgBoxDontShow /f /t REG_DWORD /v NoConnectionAvailable /d 1
 REG ADD HKEY_CURRENT_USER\Software\TeamViewer\MsgBoxDontShow /f /t REG_DWORD /v QuitWithAutostart /d 1
 REG ADD HKEY_CURRENT_USER\Software\TeamViewer /f /t REG_DWORD /v MinimizeToTray /d 1
 
+:ANTIVIRUS
 REM ###########################
 REM # INSTALAÇÃO DO ANTIVIRUS #
 REM ###########################
@@ -115,11 +138,41 @@ if exist KAV19.0.0.1088_pt-BR_full.exe (
       echo Instalando versao GRATUITA do antivirus Kaspersky
       kfa18.0.0.405pt-BR_full.exe /pEULA=1 /pPRIVACYPOLICY=1 /pKSN=0 /pALLOWREBOOT=0 /s
    ) else (
-      echo Não encontrado instalador do kaspersky!
-      pause
+      echo Não encontrado instalador offline do kaspersky!
+      GOTO KASPERONLINE
    )
 )
+GOTO ADOBE
 
+:KASPERONLINE
+if exist kav21.3.10.391pt_30829.exe (
+    echo Instalador ONLINE do Kasper COMPLETO detectado, conecte-se a internet para continuar...
+    pause
+    if exist install.cfg (
+        echo Arquivo de configuracao padrao detectado.
+    ) else (
+        echo Baixando arquivo de configuracao padrao do site da RMB Informatica...
+        powershell Invoke-WebRequest -Uri "https://rmbinformatica.com.br/pub/kasper.cfg" -OutFile install.cfg
+    )
+    kav21.3.10.391pt_30829.exe /pEULA=1 /pPRIVACYPOLICY=1 /pKSN=1 /pALLOWREBOOT=0 /pSKIPPRODUCTCHECK=1 /pSKIPPRODUCTUNINSTALL=1 /s
+) else (
+    if exist KasperskyFree.exe (
+        echo Instalador ONLINE do Kasper GRATUITO detectado, conecte-se a internet para continuar...
+        pause
+        if exist install.cfg (
+            echo Arquivo de configuracao padrao detectado.
+        ) else (
+            echo Baixando arquivo de configuracao padrao do site da RMB Informatica...
+            powershell Invoke-WebRequest -Uri "https://rmbinformatica.com.br/pub/kasper.cfg" -OutFile install.cfg
+        )
+        KasperskyFree.exe /pEULA=1 /pPRIVACYPOLICY=1 /pKSN=1 /pALLOWREBOOT=0 /pSKIPPRODUCTCHECK=1 /pSKIPPRODUCTUNINSTALL=1 /s
+    ) else (
+        echo Não encontrado instalador online do kaspersky!
+        pause
+    )
+)
+
+:ADOBE
 if exist AcroRdrDC1900820071_pt_BR.exe (
     echo Instalando o adobe reader...
     AcroRdrDC1900820071_pt_BR.exe /sAll /rs /msi EULA_ACCEPT=YES
@@ -127,7 +180,7 @@ if exist AcroRdrDC1900820071_pt_BR.exe (
 
 if exist Dropbox_140.4.1951_Offline_Installer.exe (
     echo Instalando DropBox
-    Dropbox_140.4.1951_Offline_Installer.exe /S
+    Dropbox_154.4.5363_Offline_Installer.x64.exe /S
 ) 
 
 if exist WhatsAppSetup.exe (
@@ -138,14 +191,4 @@ if exist WhatsAppSetup.exe (
 if exist tsetup-x64.3.4.8.exe (
     echo Instalando Telegram
     tsetup-x64.3.4.8.exe /VERYSILENT /NORESTART
-)
-
-if exist excecao_defender.ps1 (
-    echo Incluindo excecoes no windows defender
-    powershell -ExecutionPolicy Bypass -File .\excecao_defender.ps1 -x -r -i
-)
-
-if exist bloquear_upgrade_windows11.ps1 (
-    echo Bloqueando upgrade para o windows 11
-    powershell -ExecutionPolicy Bypass -File .\bloquear_upgrade_windows11.ps1 -x -r -i
 )
