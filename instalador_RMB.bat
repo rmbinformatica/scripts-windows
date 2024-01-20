@@ -33,7 +33,7 @@ start /b winrar-x64-602br.exe /S
 
 REM ########## RUSTDESK ##########
 echo Instalando o RustDesk...
-"rustdesk-host=servidor.rmbinformatica.net,key=AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=.exe"
+"rustdesk-host=servidor.rmbinformatica.net,key=AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=.exe" --silent-install
 
 REM ########## ANYDESK ##########
 echo Instalando o anydesk...
