@@ -29,7 +29,7 @@ EXIT
 CD\instalar
 REM ########## WINRAR ##########
 echo Instalando o winrar...
-start /b winrar-x64-602br.exe /S
+start /b winrar-x64-624br.exe /S
 
 REM ########## RUSTDESK ##########
 echo Instalando o RustDesk...
@@ -44,14 +44,14 @@ echo Instalando o Google Chrome...
 ChromeStandaloneSetup64.exe /silent /install
 
 echo Instalando o firefox...
-FirefoxSetup114.0.1 /S
+FirefoxSetup123.0.exe /S
 
 REM ########## UTILITARIOS ##########
 echo Instalando o NAPS Scanner
-naps2-6.1.2-setup.exe /SILENT
+naps2-7.3.1-win.exe /SILENT
 
 echo Instalando o filezilla
-FileZilla_3.64.0_win64-setup /user=all /S
+FileZilla_3.66.5_win64-setup.exe /user=all /S
 
 REM ########## CONFIGURACOES DO WINDOWS ##########
 echo Definindo plano de energia para Alto Desempenho
@@ -94,12 +94,12 @@ REG ADD "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v Hi
 
 if exist excecao_defender.ps1 (
     echo Incluindo excecoes no windows defender
-    powershell -ExecutionPolicy Bypass -File .\excecao_defender.ps1 -x -r -i
+    powershell -ExecutionPolicy Bypass -File .\excecao_defender.ps1
 )
 
 if exist bloquear_upgrade_windows11.ps1 (
     echo Bloqueando upgrade para o windows 11
-    powershell -ExecutionPolicy Bypass -File .\bloquear_upgrade_windows11.ps1 -x -r -i
+    powershell -ExecutionPolicy Bypass -File .\bloquear_upgrade_windows11.ps1
 )
 
 REM echo Habilitar o Subsistema do Windows para Linux
@@ -109,13 +109,15 @@ REM echo Habilitar o recurso de Máquina Virtual
 REM dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
 
 CD\Instalar
-echo Instalando o teamviewer
 if exist TeamViewer_Setup11Lexos.exe (
+    echo Instalando o teamviewer versao 11
     TeamViewer_Setup11Lexos.exe /S
     GOTO CONFIGTV
 )
-if exist TeamViewer_Setup15.exe (
-    TeamViewer_Setup15.exe /S
+
+if exist TeamViewer_Setup15.50.5_x64.exe (
+    echo Instalando o teamviewer versao 15
+    TeamViewer_Setup15.50.5_x64.exe /S
     GOTO CONFIGTV
 )
 GOTO ANTIVIRUS
@@ -178,17 +180,22 @@ if exist AcroRdrDC1900820071_pt_BR.exe (
     AcroRdrDC1900820071_pt_BR.exe /sAll /rs /msi EULA_ACCEPT=YES
 )
 
-if exist Dropbox_140.4.1951_Offline_Installer.exe (
+if exist Dropbox_193.4.5594_Offline_Installer.x64.exe (
     echo Instalando DropBox
-    Dropbox_154.4.5363_Offline_Installer.x64.exe /S
+    Dropbox_193.4.5594_Offline_Installer.x64.exe /S
 ) 
 
-if exist WhatsAppSetup.exe (
-    echo Instalando Whatsapp
-    WhatsAppSetup.exe --silent
+if exist tsetup-x64.4.15.0.exe (
+    echo Instalando Telegram
+    tsetup-x64.4.15.0.exe /VERYSILENT /NORESTART
 )
 
-if exist tsetup-x64.3.4.8.exe (
-    echo Instalando Telegram
-    tsetup-x64.3.4.8.exe /VERYSILENT /NORESTART
+if exist vlc-3.0.20-win64.exe (
+    echo Instalando VLC Media Player
+    vlc-3.0.20-win64.exe
 )
+
+:WINGET
+echo Conecte-se a internet para instalacao dos softwares via Winget
+pause
+winget install WhatsApp.WhatsApp --accept-source-agreements --accept-package-agreements
