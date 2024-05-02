@@ -24,3 +24,9 @@ $TrechoB = "https://github.com/openrport/openrport/releases/download/0.9.14/rpor
 $Conteudo = Get-Content $Arquivo
 $Conteudo = $Conteudo -replace [regex]::Escape($TrechoA), $TrechoB
 Set-Content $Arquivo $Conteudo
+
+$TrechoA = 'https://pairing.openrport.io/update'
+$TrechoB = "https://pairing.rmbinformatica.net/update"
+$Conteudo = Get-Content $Arquivo
+$Conteudo = $Conteudo -replace [regex]::Escape($TrechoA), $TrechoB
+Set-Content $Arquivo $Conteudo
