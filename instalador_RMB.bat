@@ -67,6 +67,11 @@ REG ADD HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Adv
 echo Exibindo icone do meu computador na area de trabalho...
 REG ADD HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\NewStartPanel /f /t REG_DWORD /v "{20D04FE0-3AEA-1069-A2D8-08002B30309D}" /d 0
 
+echo Configurando informacoes de suporte do windows...
+REG ADD HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\OEMInformation /f /t REG_SZ /v SupportPhone /d "+55 (84) 3202-4989"
+REG ADD HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\OEMInformation /f /t REG_SZ /v SupportHours /d "8h as 18h Horario de Brasilia"
+REG ADD HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\OEMInformation /f /t REG_SZ /v SupportURL /d "https://rmbinformatica.com/"
+
 echo Definindo a senha do anydesk...
 set /P SenhaAnydesk="Informe qual sera a senha do anydesk: "
 echo %SenhaAnydesk% | "C:\Program Files (x86)\AnyDesk\AnyDesk.exe" --set-password
