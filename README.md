@@ -10,6 +10,73 @@ Nesta seção você encontrará alguns scripts batch desenvolvidos pela nossa em
 
 Reconfigura as categorias das conexões de rede existentes de público para privado.
 
+#### `ntfy.ps1`
+
+Função para envio de notificações dentro de qualquer script com o uso do ntfy.sh.
+
+Requer o arquivo `ntfy.txt` no diretório do USERPROFILE, sintaxe:
+
+```text
+NTFY_URL=https://meuhost.example.com
+NTFY_TOPIC=meutopic
+```
+
+Depois você pode carregar o script com o comando:
+
+```powershell
+. C:\Scripts\ntfy.ps1
+```
+
+Exemplo de uso:
+
+```powershell
+ntfy "Servidor reiniciado"
+ntfy "Backup concluído"
+```
+
+Para carrega-lo automaticamente para o prompt do powershell, verifique o caminho do seu perfil atual:
+
+```powershell
+$PROFILE
+```
+
+Normalmente:
+* PowerShell 5.1: `C:\Users\SeuUsuario\Documents\WindowsPowerShell\Microsoft.PowerShell_profile.ps1`
+* PowerShell 7+: `C:\Users\SeuUsuario\Documents\PowerShell\Microsoft.PowerShell_profile.ps1`
+
+Se o perfil ainda não existir, crie-o:
+
+```powershell
+# Cria a pasta se não existir
+New-Item -ItemType Directory -Path (Split-Path $PROFILE) -Force
+
+# Cria o arquivo de perfil vazio
+New-Item -ItemType File -Path $PROFILE -Force
+```
+
+Adicione o carregamento da função ntfy:
+
+```powershell
+notepad $PROFILE
+```
+
+Acrescente ao final do arquivo:
+```powershell
+# Carrega a função ntfy automaticamente
+. "$env:USERPROFILE\Scripts\ntfy.ps1"
+
+# Ou se estiver em outro caminho
+. "C:\Scripts\ntfy.ps1"
+```
+
+Salve, **feche e reabra o powershell** e teste:
+
+```powershell
+ntfy "Teste automático"
+```
+
+
+
 ### Scripts Batch
 
 #### `removeWSUS_restoreWindowsUpdate.bat`
