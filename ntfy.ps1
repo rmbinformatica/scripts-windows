@@ -16,8 +16,12 @@ function ntfy {
         [string]$Message
     )
 
+    $caminho="$env:USERPROFILE"
+    # Para utilizar um outro caminho altere a variável $caminho para o caminho desejado, por exemplo: $caminho="C:\ntfy"
+    # $caminho="c:\ntfy"
+
     # Lê as configurações
-    $config = Get-Content "$env:USERPROFILE\ntfy.txt" | ConvertFrom-StringData
+    $config = Get-Content "$caminho\ntfy.txt" | ConvertFrom-StringData
 
     $url = "$($config.NTFY_URL)/$($config.NTFY_TOPIC)"
     $hostname = $env:COMPUTERNAME
@@ -36,7 +40,7 @@ function ntfy {
         }
         catch {
             # Opcional: grava erro em log
-            Add-Content -Path "$env:USERPROFILE\ntfy_error.log" -Value "$(Get-Date) - Erro: $_"
+            Add-Content -Path "$caminho\ntfy_error.log" -Value "$(Get-Date) - Erro: $_"
         }
     } -ArgumentList $url, $fullMessage | Out-Null
 }
