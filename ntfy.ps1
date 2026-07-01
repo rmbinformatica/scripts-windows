@@ -1,3 +1,15 @@
+<#
+.SYNOPSIS
+    Script para enviar notificações usando o serviço ntfy.
+.DESCRIPTION
+	Este script envia mensagens para um tópico específico no serviço ntfy.
+.EXAMPLE
+	ntfy "Mensagem de teste"
+.LINK
+	https://github.com/rmbinformatica/scripts-windows/blob/master/ntfy.ps1
+.NOTES
+	Author: Renato Monteiro Batista | rmbinformatica.com | r3n4t0.cyou
+#>
 function ntfy {
     param(
         [Parameter(Mandatory=$true, Position=0)]
